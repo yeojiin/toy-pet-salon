@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,9 +30,12 @@ public class UserRepositoryTest {
 
     @Test
     @DisplayName("사용자를 저장할 수 있다")
+//    @Rollback(false)
     void save_user() {
         // when
         User user = userRepository.save(yeojiin);
+
+        List<User> allusers = userRepository.findAll();
 
         assertAll(
                 () -> assertThat(user.getUserNo()).isNotNull(),
