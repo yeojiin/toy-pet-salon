@@ -35,8 +35,6 @@ public class UserRepositoryTest {
         // when
         User user = userRepository.save(yeojiin);
 
-        List<User> allusers = userRepository.findAll();
-
         assertAll(
                 () -> assertThat(user.getUserNo()).isNotNull(),
                 () -> assertThat(user.getPassword()).isEqualTo(yeojiin.getPassword()),
