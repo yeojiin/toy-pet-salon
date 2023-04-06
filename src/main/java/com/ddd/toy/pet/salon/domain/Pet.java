@@ -18,6 +18,10 @@ public class Pet extends BaseEntity{
     private int age;
     private String type;
 
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인
+    private User user;
+
     protected Pet() {
     }
 
@@ -26,6 +30,20 @@ public class Pet extends BaseEntity{
         this.gender = gender;
         this.age = age;
         this.type = type;
+    }
+    public Pet(String name, String gender, int age, String type, User user) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.type = type;
+        this.user = user;
+    }
+
+    public Long getUserNo() {
+        return user != null ? user.getUserNo() : null;
+    }
+    public String getUserName() {
+        return user != null ? user.getName() : null;
     }
 
     @Override
@@ -40,4 +58,7 @@ public class Pet extends BaseEntity{
     public int hashCode() {
         return Objects.hash(getPetNo(), getName(), getGender(), getAge(), getType());
     }
+
+
+
 }

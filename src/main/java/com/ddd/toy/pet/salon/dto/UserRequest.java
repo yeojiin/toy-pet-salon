@@ -11,8 +11,14 @@ public class UserRequest {
     private String email;
     private String password;
 
-
     protected UserRequest() {
+    }
+
+    public UserRequest(String id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public User toUser() {

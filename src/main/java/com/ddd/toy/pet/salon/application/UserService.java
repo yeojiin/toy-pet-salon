@@ -27,6 +27,9 @@ public class UserService {
     }
 
     public User findUserById(Long id) {
+        if(id == 0L) {
+            return null;
+        }
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException());
     }

@@ -16,6 +16,9 @@ public class PetResponse {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
+    private Long userNo;
+    private String userName;
+
     public PetResponse(Pet pet) {
         this.petNo = pet.getPetNo();
         this.name = pet.getName();
@@ -24,9 +27,12 @@ public class PetResponse {
         this.type = pet.getType();
         this.createdDate = pet.getCreatedDate();
         this.modifiedDate = pet.getModifiedDate();
+        this.userNo = pet.getUserNo();
+        this.userName = pet.getUserName();
     }
 
     public static PetResponse from(Pet pet) {
         return new PetResponse(pet);
     }
+
 }

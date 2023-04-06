@@ -19,14 +19,17 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class PetService {
     private PetRepository petRepository;
+    private UserService userService;
 
-    public PetService(PetRepository petRepository) {
+    public PetService(PetRepository petRepository, UserService userService) {
         this.petRepository = petRepository;
+        this.userService = userService;
     }
 
     @Transactional
     public PetResponse savePet(PetRequest petRequest) {
-        Pet pet = petRepository.save(petRequest.toPet());
+        User owner = userService.findUserById(petRequest.getUserNo());
+        Pet pet = petRepository.save(petRequest.toPet(owner));
         return PetResponse.from(pet);
     }
 

@@ -1,6 +1,7 @@
 package com.ddd.toy.pet.salon.domain;
 
 import com.ddd.toy.pet.salon.AcceptanceTest;
+import com.ddd.toy.pet.salon.dto.UserRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -37,11 +38,11 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @DisplayName("사용자를 등록한다")
     void registerUserTest() {
         // when
-        User user1 = new User("admin", "관리자", "admin@test.com", "1234");
+        UserRequest userRequest= new UserRequest("admin", "관리자", "admin@test.com", "4234256");
 
         ExtractableResponse<Response> response =
                 RestAssured.given().log().all()
-                        .body(user1)
+                        .body(userRequest)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .when().post("/users")
                         .then().log().all()
@@ -56,7 +57,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
                         .when().get("/users")
                         .then().log().all()
                         .extract().jsonPath().getList("name", String.class);
-        assertThat(userNames).containsAnyOf("관리자");
+        assertThat(userNames).containsAnyOf(userRequest.getName());
     }
 
 }
