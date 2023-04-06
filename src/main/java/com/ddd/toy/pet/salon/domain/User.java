@@ -10,7 +10,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 @Data
-public class User {
+@Builder
+public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userNo", updatable = false, nullable = false)
