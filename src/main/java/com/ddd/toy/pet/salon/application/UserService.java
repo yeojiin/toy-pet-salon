@@ -7,6 +7,9 @@ import com.ddd.toy.pet.salon.dto.UserResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -19,20 +22,8 @@ public class UserService {
 
     @Transactional
     public UserResponse saveUser(UserRequest userRequest) {
-        User user = User.builder()
-                .id(userRequest.getId())
-                .email(userRequest.getEmail())
-                .name(userRequest.getName())
-                .password(userRequest.getPassword())
-                .build();
-        User persistUser = userRepository.save(user);
-
-        return UserResponse.builder()
-                .userNo(persistUser.getUserNo())
-                .name(persistUser.getName())
-                .email(persistUser.getEmail())
-                .createdDate(persistUser.getCreatedDate())
-                .build();
+        User persistUser = userRepository.save(userRequest.toUser());
+        return UserResponse.from(persistUser);
     }
 
     public User findUserById(Long id) {
@@ -41,4 +32,11 @@ public class UserService {
     }
 
 
+    public List<UserResponse> findAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        return users.stream()
+                .map(UserResponse::from)
+                .collect(Collectors.toList());
+    }
 }

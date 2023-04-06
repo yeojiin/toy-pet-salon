@@ -24,9 +24,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // handlebars
-    implementation 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
-
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     annotationProcessor 'org.projectlombok:lombok'
@@ -34,6 +31,11 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.assertj:assertj-core:3.19.0'
+
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
+
+    // google.guava
+    implementation group: 'com.google.guava', name: 'guava', version: '11.0.2'
 }
 
 tasks.named('test') {

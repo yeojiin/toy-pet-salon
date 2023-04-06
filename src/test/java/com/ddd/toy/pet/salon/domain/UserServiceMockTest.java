@@ -2,6 +2,7 @@ package com.ddd.toy.pet.salon.domain;
 
 import com.ddd.toy.pet.salon.application.OrderService;
 import com.ddd.toy.pet.salon.application.UserService;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -45,5 +52,4 @@ public class UserServiceMockTest {
                 () -> assertThat(result.getEmail()).isEqualTo(testUser1.getEmail())
         );
     }
-
 }

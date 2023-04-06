@@ -1,6 +1,10 @@
 package com.ddd.toy.pet.salon.dto;
 
 
+import com.ddd.toy.pet.salon.domain.User;
+import lombok.Data;
+
+@Data
 public class UserRequest {
     private String id;
     private String name;
@@ -11,19 +15,7 @@ public class UserRequest {
     protected UserRequest() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
+    public User toUser() {
+        return new User(id, name, email, password);
     }
 }

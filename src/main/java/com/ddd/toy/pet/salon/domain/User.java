@@ -1,7 +1,5 @@
 package com.ddd.toy.pet.salon.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,7 +8,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 @Data
-@Builder
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +24,13 @@ public class User extends BaseEntity{
 
     public User(Long userNo, String id, String name, String email, String password) {
         this.userNo = userNo;
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;

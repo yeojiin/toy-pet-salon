@@ -1,12 +1,12 @@
 package com.ddd.toy.pet.salon.dto;
 
 
+import com.ddd.toy.pet.salon.domain.User;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
 public class UserResponse {
     private Long userNo;
@@ -17,6 +17,19 @@ public class UserResponse {
     private LocalDateTime modifiedDate;
 
     protected UserResponse() {
+    }
+
+    public UserResponse(User user) {
+        this.userNo = user.getUserNo();
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.createdDate = user.getCreatedDate();
+        this.modifiedDate = user.getModifiedDate();
+    }
+
+    public static UserResponse from(User user) {
+        return new UserResponse(user);
     }
 
     public Long getUserNo() {
