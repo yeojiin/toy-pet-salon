@@ -106,4 +106,54 @@ public class PetAcceptanceTest extends AcceptanceTest {
 
 
     }
+
+    /**
+     * when 반려동물을 생성하고 등록한다
+     * Then pet_id가 트리거로 업데이트 된다.
+     * Then 반려돌물의 정보를 조회하면 pet_id가 조회된다.
+     */
+    @Test
+    @DisplayName("주인이 있는 반려동물을 등록할 수 있다.")
+    public void createPetIdWithTrigger() {
+        // given
+        UserRequest userRequest = new UserRequest("test", "테스터", "test@test.com", "1234");
+        UserResponse userResponse = userService.saveUser(userRequest);
+
+        // when
+        PetRequest petRequest = new PetRequest("먼지", "M", 1, "puppy", userResponse.getUserNo());
+        ExtractableResponse<Response> response =
+                RestAssured.given().log().all()
+                        .body(petRequest)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .when().post("/pets")
+                        .then().log().all()
+                        .extract();
+
+        PetRequest petRequest2 = new PetRequest("보솜이", "F", 2, "puppy", userResponse.getUserNo());
+        ExtractableResponse<Response> response2 =
+                RestAssured.given().log().all()
+                        .body(petRequest2)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .when().post("/pets")
+                        .then().log().all()
+                        .extract();
+
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(response2.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+
+        ExtractableResponse<Response> result = RestAssured.given().log().all()
+                .when().get("/pets")
+                .then().log().all()
+                .extract();
+
+        List<String> petIds = result.jsonPath().getList("petId", String.class);
+
+        assertAll(
+                () -> assertThat(petIds).isNotEmpty()
+        );
+
+
+    }
 }

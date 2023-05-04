@@ -13,6 +13,7 @@ public class PetResponse {
     private String gender;
     private int age;
     private String type;
+    private String petId;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -29,6 +30,7 @@ public class PetResponse {
         this.modifiedDate = pet.getModifiedDate();
         this.userNo = pet.getUserNo();
         this.userName = pet.getUserName();
+        this.petId = pet.getPetId();
     }
 
     public static PetResponse from(Pet pet) {

@@ -1,5 +1,6 @@
 package com.ddd.toy.pet.salon.domain;
 
+import antlr.StringUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,8 @@ public class Pet extends BaseEntity{
     private String gender;
     private int age;
     private String type;
+
+    private String petId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인
@@ -60,5 +63,10 @@ public class Pet extends BaseEntity{
     }
 
 
+    public void createPetId() {
+        String prefix = "P";
+        String newPetId = String.format("%03d", this.petNo);
 
+        this.petId = prefix.concat(newPetId);
+    }
 }

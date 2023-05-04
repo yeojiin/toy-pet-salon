@@ -30,6 +30,9 @@ public class PetService {
     public PetResponse savePet(PetRequest petRequest) {
         User owner = userService.findUserById(petRequest.getUserNo());
         Pet pet = petRepository.save(petRequest.toPet(owner));
+
+        // petId update
+        pet.createPetId();
         return PetResponse.from(pet);
     }
 
