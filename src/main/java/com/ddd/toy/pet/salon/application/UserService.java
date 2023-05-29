@@ -23,6 +23,8 @@ public class UserService {
     @Transactional
     public UserResponse saveUser(UserRequest userRequest) {
         User persistUser = userRepository.save(userRequest.toUser());
+
+        persistUser.createUserId();
         return UserResponse.from(persistUser);
     }
 

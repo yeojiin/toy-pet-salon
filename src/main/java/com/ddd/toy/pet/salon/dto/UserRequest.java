@@ -1,8 +1,12 @@
 package com.ddd.toy.pet.salon.dto;
 
 
+import com.ddd.toy.pet.salon.domain.Pet;
 import com.ddd.toy.pet.salon.domain.User;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class UserRequest {
@@ -10,6 +14,7 @@ public class UserRequest {
     private String name;
     private String email;
     private String password;
+    private List<Pet> pets = new ArrayList<>();
 
     protected UserRequest() {
     }
@@ -22,6 +27,6 @@ public class UserRequest {
     }
 
     public User toUser() {
-        return new User(id, name, email, password);
+        return new User(id, name, email, password, pets);
     }
 }

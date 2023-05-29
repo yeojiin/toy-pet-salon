@@ -12,20 +12,21 @@ import java.util.Objects;
 public class Pet extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "petNo", updatable = false, nullable = false)
+    @Column(name = "pet_no", updatable = false, nullable = false)
     private Long petNo;
     private String name;
     private String gender;
     private int age;
     private String type;
 
+    @Column(name = "pet_id", updatable = false, nullable = false)
     private String petId;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인
     private User user;
 
-    protected Pet() {
+    public Pet() {
     }
 
     public Pet(String name, String gender, int age, String type) {
