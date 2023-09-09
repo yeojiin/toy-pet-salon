@@ -4,6 +4,9 @@ import antlr.StringUtils;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +28,9 @@ public class Pet extends BaseEntity{
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인
     private User user;
+
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pet")
+//    private List<Image> images = new ArrayList<>();
 
     public Pet() {
     }
@@ -69,5 +75,20 @@ public class Pet extends BaseEntity{
         String newPetId = String.format("%03d", this.petNo);
 
         this.petId = prefix.concat(newPetId);
+    }
+
+    public void addImages() {
+//        if(!images.isEmpty()) {
+//            images.forEach(this::addImage);
+//        }
+
+    }
+
+    private void addImage(Image image) {
+//        images.add(image);
+    }
+
+    public void changeUser(User user) {
+        this.user = user;
     }
 }

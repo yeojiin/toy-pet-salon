@@ -15,6 +15,7 @@ public class UserRequest {
     private String email;
     private String password;
     private List<Pet> pets = new ArrayList<>();
+//    private List<Image> images = new ArrayList<>();
 
     protected UserRequest() {
     }
