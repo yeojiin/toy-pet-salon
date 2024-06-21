@@ -1,5 +1,6 @@
 package com.ddd.toy.pet.salon.domain;
 
+import com.ddd.toy.pet.salon.dto.UserRequest;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class User extends BaseEntity{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pet> pets = new ArrayList<Pet>();
+
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+//    @JoinColumn(name="target_No")
+//    private List<Image> images = new ArrayList<>();
 
     protected User() {
     }
@@ -50,16 +55,31 @@ public class User extends BaseEntity{
         if(!pets.isEmpty()) {
             addPets(pets);
         }
+//        if(!images.isEmpty()) {
+//            addImages(images);
+//        }
     }
 
     private void addPets(List<Pet> pets) {
         pets.forEach(this::addPet);
     }
 
+//    private void addImages(List<Image> images) {
+//        images.forEach(this::addImage);
+//    }
+
     private void addPet(Pet pet) {
+//        if(!pet.getImages().isEmpty()) {
+//            pet.addImages();
+//        }
+
         this.pets.add(pet);
         pet.setUser(this);
     }
+
+//    private void addImage(Image image) {
+//        this.images.add(image);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -80,5 +100,21 @@ public class User extends BaseEntity{
         String newUserId = String.format("%03d", this.userNo);
 
         this.id = prefix.concat(newUserId);
+    }
+
+    public void deletePet() {
+        this.pets = new ArrayList<>();
+    }
+
+    public void addNewPet(List<Pet> pets) {
+        this.pets.addAll(pets);
+
+        this.pets.forEach(p -> {
+            p.changeUser(this);
+        });
+    }
+
+    public void changeInfo(UserRequest userRequest) {
+        this.name = userRequest.getName();
     }
 }

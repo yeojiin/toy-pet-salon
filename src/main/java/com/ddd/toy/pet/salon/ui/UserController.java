@@ -34,4 +34,10 @@ public class UserController {
     public ResponseEntity handleIllegalArgsException() {
         return ResponseEntity.badRequest().build();
     }
+
+
+    @PostMapping("/test")
+    public void testChangePet() {
+        userService.testChangePet();
+    }
 }
