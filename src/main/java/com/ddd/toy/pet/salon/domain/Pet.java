@@ -23,7 +23,7 @@ public class Pet extends BaseEntity{
     private String petId;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인
+    @JoinColumn(name = "user_no")   //FK가 있는 곳이 연관관계의 주인        name:여기서 연결할 컬럼, refre~: 부모테이블 연결 컬럼
     private User user;
 
     public Pet() {
